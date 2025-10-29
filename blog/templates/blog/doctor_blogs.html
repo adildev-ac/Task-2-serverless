@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog Posts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>My Blog Posts</h2>
+        <a href="{% url 'create_blog' %}" class="btn btn-primary mb-3">Create New Blog</a>
+        <a href="{% url 'doctor_dashboard' %}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+
+        {% if blogs %}
+            <div class="row">
+                {% for blog in blogs %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            {% if blog.image %}
+                                <img src="{{ blog.image.url }}" class="card-img-top" alt="{{ blog.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ blog.title }}</h5>
+                                <p class="card-text text-muted">Category: {{ blog.category.name }}</p>
+                                <p class="card-text">{{ blog.get_summary_truncated }}</p>
+                                {% if blog.is_draft %}
+                                    <span class="badge bg-warning">Draft</span>
+                                {% else %}
+                                    <span class="badge bg-success">Published</span>
+                                {% endif %}
+                                <p class="card-text"><small class="text-muted">Created: {{ blog.created_at|date:"d M Y" }}</small></p>
+                                <a href="{% url 'edit_blog' blog.id %}" class="btn btn-sm btn-info">Edit</a>
+                                <a href="{% url 'delete_blog' blog.id %}" class="btn btn-sm btn-danger">Delete</a>
+                                <a href="{% url 'blog_detail' blog.id %}" class="btn btn-sm btn-primary">View</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                You haven't created any blog posts yet. <a href="{% url 'create_blog' %}">Create one now</a>.
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
