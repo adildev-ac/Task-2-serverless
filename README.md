@@ -1,3 +1,6 @@
+# screen recording
+https://drive.google.com/file/d/1ECva8cTMOfwMWucUqJt3yXfizM3skpfB/view?usp=sharing
+
 # Medical Portal
 
 A comprehensive Django web application for doctors and patients with user authentication, role-based dashboards, and an integrated blog system.
